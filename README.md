@@ -25,7 +25,7 @@ everything (Neovim, tmux, git, ripgrep, fd, fzf, lazygit, and on WSL the
 win32yank clipboard bridge), then links the configs:
 
 ```sh
-git clone <your-repo-url> ~/dotfiles
+git clone https://github.com/Bzahirpour/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 chmod +x bootstrap.sh
 ./bootstrap.sh
