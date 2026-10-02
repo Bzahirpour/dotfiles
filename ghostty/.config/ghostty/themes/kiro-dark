@@ -1,0 +1,31 @@
+# Kiro Dark, for Ghostty
+# Derived from the Kiro brand (logo purple #9d5cf6), tuned for lower contrast:
+# lifted background, medium foreground, softened accents so bright colors do
+# not bloom (easier on the eyes). Install: place at
+# ~/.config/ghostty/themes/kiro-dark, then set `theme = kiro-dark`.
+
+palette = 0=#3a3447
+palette = 1=#e07a92
+palette = 2=#7fcf9e
+palette = 3=#e6d59a
+palette = 4=#8f9bd8
+palette = 5=#a775e0
+palette = 6=#83cdd6
+palette = 7=#c4bed4
+palette = 8=#6f6885
+palette = 9=#ec93a8
+palette = 10=#9bdcb4
+palette = 11=#efe2b0
+palette = 12=#a8b2e4
+palette = 13=#c0a0f0
+palette = 14=#a0dbe2
+palette = 15=#e6e1f0
+
+background = #2a2535
+foreground = #9f98b5
+
+cursor-color = #9d5cf6
+cursor-text = #2a2535
+
+selection-background = #3c3552
+selection-foreground = #e6e1f0

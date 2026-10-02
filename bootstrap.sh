@@ -33,7 +33,7 @@ install_macos() {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
   log "Installing packages via brew"
-  brew install neovim git ripgrep fd lazygit fzf tmux stow
+  brew install neovim git ripgrep fd lazygit fzf tmux
   log "Installing JetBrainsMono Nerd Font"
   brew install --cask font-jetbrains-mono-nerd-font || true
 }
@@ -44,7 +44,7 @@ install_macos() {
 install_linux() {
   log "Installing base packages via apt"
   sudo apt update
-  sudo apt install -y git ripgrep fd-find unzip build-essential curl tmux fzf python3-pip stow
+  sudo apt install -y git ripgrep fd-find unzip build-essential curl tmux fzf python3-pip
 
   # fd is 'fdfind' on Ubuntu; LazyVim expects 'fd'
   mkdir -p "$HOME/.local/bin"

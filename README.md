@@ -1,98 +1,59 @@
 # dotfiles
 
-Portable config for Neovim (LazyVim), tmux, and Ghostty. Works on macOS and Ubuntu/WSL.
+Portable config for Neovim (LazyVim), tmux, and Ghostty. macOS and Ubuntu/WSL.
 
-## Layout
+## How it works
 
-This repo uses a [GNU stow](https://www.gnu.org/software/stow/)-friendly structure:
-each top-level folder is a "package" whose contents mirror your home directory.
+Each app's config is a single symlink into this repo:
 
 ```
-dotfiles/
-├── bootstrap.sh                     # installs tools, runs install.sh, then verify.sh
-├── install.sh                       # symlinks configs into place
-├── verify.sh                        # checks tools, versions, links, tmux parse
-├── .gitignore                       # blocks secrets from being committed
-├── tmux/.config/tmux/tmux.conf      # -> ~/.config/tmux/tmux.conf
-├── nvim/.config/nvim/               # -> ~/.config/nvim/  (your LazyVim config)
-└── ghostty/.config/ghostty/config   # -> ~/.config/ghostty/config (macOS only)
+~/.config/nvim     -> nvim/.config/nvim
+~/.config/ghostty  -> ghostty/.config/ghostty   (macOS only)
+~/.config/tmux     -> tmux/.config/tmux
 ```
 
-## New machine from scratch
+Because whole directories are linked, anything added inside (new themes, new
+lua files) is picked up automatically, with no extra steps.
 
-On a bare machine with none of the tools installed, `bootstrap.sh` installs
-everything (Neovim, tmux, git, ripgrep, fd, fzf, lazygit, and on WSL the
-win32yank clipboard bridge), then links the configs:
-
-```sh
-git clone https://github.com/Bzahirpour/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-chmod +x bootstrap.sh
-./bootstrap.sh
-```
-
-It detects the OS: Homebrew on macOS, apt plus the official Neovim tarball on
-Ubuntu/WSL. It is safe to re-run. Open a new shell afterward so PATH changes
-take effect, then launch `nvim` once to let LazyVim install its plugins.
-
-What bootstrap does NOT do automatically:
-- **macOS**: nothing extra, the Nerd Font is installed via a brew cask.
-- **WSL**: the Nerd Font must be installed on the **Windows** side and set as
-  your terminal profile's font (Windows Terminal / WezTerm). bootstrap prints a
-  reminder about this.
-
-## First-time setup (tools already installed)
-
-If Neovim and tmux are already on the machine, skip bootstrap and just link:
+## New machine
 
 ```sh
 git clone <your-repo-url> ~/dotfiles
 cd ~/dotfiles
+./bootstrap.sh      # installs tools, then runs install.sh + verify.sh
+```
+
+If the tools are already installed, skip bootstrap and just link:
+
+```sh
 ./install.sh
 ```
 
-The installer backs up any existing real files to `~/.dotfiles-backup/<timestamp>/`
-before linking, so nothing is overwritten.
+`install.sh` backs up any existing real config to `~/.dotfiles-backup/<timestamp>/`
+before linking. Re-running is safe.
 
-## Verifying
-
-`bootstrap.sh` runs `verify.sh` at the end, but you can run it any time to check
-a machine is in good shape:
+## Updating
 
 ```sh
-./verify.sh
+cd ~/dotfiles && git pull   # live configs update instantly (they are symlinks)
 ```
 
-It confirms the tools are installed and new enough (Neovim 0.10+, tmux 3.2+),
-that the configs are symlinked, and that `tmux.conf` parses with no errors. The
-parse test runs on its own throwaway tmux socket, so it never touches your real
-sessions. It exits non-zero if anything fails, so it is safe to use in CI or a
-provisioning check.
+## Adding another app
 
-## Adding your Neovim config to the repo
+Add one line to the `LINKS` list in `install.sh`, put its config under
+`<app>/.config/<app>/` in the repo, and re-run `./install.sh`.
 
-The `nvim` package ships empty (just a `.keep` placeholder). To bring your
-existing LazyVim setup under version control:
+## Ghostty themes
 
-```sh
-rm ~/dotfiles/nvim/.config/nvim/.keep
-mv ~/.config/nvim/* ~/.config/nvim/.[!.]* ~/dotfiles/nvim/.config/nvim/ 2>/dev/null
-cd ~/dotfiles && ./install.sh nvim
-git add -A && git commit -m "Add nvim config"
-```
+Theme files live in `ghostty/.config/ghostty/themes/` and are available to
+Ghostty automatically (the whole ghostty dir is linked). Switch by editing the
+`theme =` line in `ghostty/.config/ghostty/config`. Included: `kiro-dark`,
+`everforest-soft`.
 
-Both machines then pull the same config with `git pull && ./install.sh`.
+## Notes
 
-## Notes per machine
-
-- **macOS**: `install.sh` also stows the Ghostty config. Font (JetBrainsMono
-  Nerd Font) and Tokyo Night theme are set there.
-- **Ubuntu/WSL**: Ghostty is skipped. The terminal font is a Windows-side
-  setting (set JetBrainsMono Nerd Font in Windows Terminal / WezTerm). For
-  clipboard yanks from tmux, install `win32yank` so the `y` binding works.
-
-## Prerequisites
-
-tmux 3.2+ and Neovim 0.10+ (both installed for you by `bootstrap.sh`). The tmux
-config needs no plugins for the statusline or clipboard; tpm is optional and
-commented out at the bottom of `tmux.conf`.
+- macOS: if Ghostty ignores this config, make sure no stray
+  `~/Library/Application Support/com.mitchellh.ghostty/config` is shadowing it
+  (move it aside).
+- WSL: the terminal font is a Windows-side setting; install `win32yank` for tmux
+  clipboard. Ghostty is skipped (macOS only).

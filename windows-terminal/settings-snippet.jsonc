@@ -1,0 +1,39 @@
+// Windows Terminal: Everforest Soft (matches the macOS Ghostty setup).
+// Windows Terminal's settings.json is one merged file, so this can't be
+// symlinked like the other configs. Paste these pieces in by hand:
+//   Windows Terminal -> Ctrl+, -> gear (Open JSON file).
+// No font install needed; uses Windows Terminal's built-in font. For Nerd Font
+// icons without installing anything, set "face": "Cascadia Code NF" (ships with
+// Windows Terminal).
+
+// 1) Add this object to the top-level  "schemes": [ ... ]  array:
+{
+  "name": "Everforest Soft",
+  "background": "#232A2E",
+  "foreground": "#D3C6AA",
+  "cursorColor": "#D699B6",
+  "selectionBackground": "#475258",
+  "black":         "#475258",
+  "red":           "#E67E80",
+  "green":         "#A7C080",
+  "yellow":        "#DBBC7F",
+  "blue":          "#7FBBB3",
+  "purple":        "#D699B6",
+  "cyan":          "#83C092",
+  "white":         "#D3C6AA",
+  "brightBlack":   "#5C6A72",
+  "brightRed":     "#E67E80",
+  "brightGreen":   "#A7C080",
+  "brightYellow":  "#DBBC7F",
+  "brightBlue":    "#7FBBB3",
+  "brightPurple":  "#D699B6",
+  "brightCyan":    "#83C092",
+  "brightWhite":   "#D3C6AA"
+}
+
+// 2) Add these keys to your Ubuntu profile (in "profiles" -> "list" -> the
+//    Ubuntu entry), or to "profiles" -> "defaults" to apply to all profiles:
+//
+//   "colorScheme": "Everforest Soft",
+//   "opacity": 80,
+//   "useAcrylic": true
