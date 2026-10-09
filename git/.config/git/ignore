@@ -1,0 +1,19 @@
+# Global gitignore - OS and editor junk, ignored in EVERY repo.
+# Git reads ~/.config/git/ignore automatically (no config needed).
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor / swap
+*~
+.*.swp
+.*.swo

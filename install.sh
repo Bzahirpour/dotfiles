@@ -18,6 +18,10 @@ LINKS=(
   "nvim/.config/nvim:.config/nvim"
   "ghostty/.config/ghostty:.config/ghostty"
   "tmux/.config/tmux:.config/tmux"
+  "starship/.config/starship.toml:.config/starship.toml"
+  "shell/.config/shell:.config/shell"
+  "git/.config/git:.config/git"
+  "wal/.config/wal:.config/wal"
 )
 
 for entry in "${LINKS[@]}"; do

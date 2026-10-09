@@ -6,6 +6,7 @@ font-style = SemiBold
 font-size = 14
 
 theme = everforest-soft
+config-file = ~/.cache/wal/colors-ghostty
 
 # a little breathing room around the text
 window-padding-x = 8

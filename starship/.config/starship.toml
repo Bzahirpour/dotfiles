@@ -1,0 +1,50 @@
+# Starship prompt - minimal italic. Uses ANSI color NAMES (not hardcoded hex)
+# so the prompt follows the terminal's active palette (Everforest, or pywal).
+add_newline = true
+
+format = """
+$directory$git_branch$git_status$kubernetes$aws
+$character"""
+
+[directory]
+style = "red italic"
+format = "[◆ $path]($style) "
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+symbol = "● "
+style = "purple italic"
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "yellow italic"
+format = "([$all_status$ahead_behind]($style)) "
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
+stashed = "*${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+conflicted = "="
+
+[kubernetes]
+disabled = false
+symbol = "⎈ "
+style = "cyan italic"
+format = '[$symbol$context( \($namespace\))]($style) '
+
+[aws]
+symbol = "☁ "
+style = "yellow italic"
+format = '[$symbol$profile]($style) '
+
+[character]
+success_symbol = "[▶](green)"
+error_symbol = "[▶](red)"
+
+[conda]
+disabled = true
